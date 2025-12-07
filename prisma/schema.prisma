@@ -1,0 +1,81 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+  schemas      = ["public"]
+}
+
+datasource db {
+  provider = "postgresql"
+  schemas  = ["public"]
+}
+
+enum QuoteOptionType {
+  Call
+  Put
+
+  @@schema("public")
+  @@map("QuoteOptionType")
+}
+
+model User {
+  id    String     @id @default(uuid())
+  email String  @unique
+  password String 
+  name  String?
+  posts Post[]
+
+  @@map("User")
+  @@schema("public")
+  quotes Quote[]
+}
+
+model Quote {
+  id String @id @default(uuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  optionType QuoteOptionType
+  instrumentId String
+  userBid Float?
+  userAsk Float?
+  notes String?
+  overrides Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@schema("public")
+  @@map("Quote")
+  @@unique([userId, instrumentId])
+  @@index([userId])
+  @@index([instrumentId])
+}
+
+model MarketInstrument {
+  id String @id @default(uuid())
+  symbol String @unique
+  name String?
+
+  // Market Data
+  spotPrice Float @default(0)
+  mktBid Float @default(0)
+  mktAsk Float @default(0)
+  delta Float @default(0)
+  premium Float @default(0)
+
+  lastUpdate DateTime @default(now())
+  
+  @@schema("public")
+  @@map("MarketInstrument")
+  @@index([symbol])
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  content   String?
+  published Boolean? @default(false)
+  authorId  String?
+  author    User?    @relation(fields: [authorId], references: [id], onDelete: Cascade)
+
+  @@map("Post")
+  @@schema("public")
+}
