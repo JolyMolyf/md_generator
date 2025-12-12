@@ -6,6 +6,12 @@ import { MarketDataIntrumentService } from "./market-data-intrument.service";
 export class MarketDataInstrumentController {
     constructor(private readonly marketDataIntrumentService: MarketDataIntrumentService) {}   
 
+    @Get('/')
+    async findAll() {
+        const marketDataInstruments = await this.marketDataIntrumentService.findAllMarketDataInstruments();
+        return marketDataInstruments;
+    }
+
     @Get('/find-by-symbol')
     async findBySymbol(@Query() query: { symbol: string }) {
         const marketDataInstrument = await this.marketDataIntrumentService.findMarketDataInstrumentBySymbol(query.symbol);

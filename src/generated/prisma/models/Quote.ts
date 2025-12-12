@@ -275,7 +275,6 @@ export type QuoteOrderByWithRelationInput = {
 
 export type QuoteWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  userId_instrumentId?: Prisma.QuoteUserIdInstrumentIdCompoundUniqueInput
   AND?: Prisma.QuoteWhereInput | Prisma.QuoteWhereInput[]
   OR?: Prisma.QuoteWhereInput[]
   NOT?: Prisma.QuoteWhereInput | Prisma.QuoteWhereInput[]
@@ -289,7 +288,7 @@ export type QuoteWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Quote"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Quote"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "userId_instrumentId">
+}, "id">
 
 export type QuoteOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -423,11 +422,6 @@ export type QuoteListRelationFilter = {
 
 export type QuoteOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type QuoteUserIdInstrumentIdCompoundUniqueInput = {
-  userId: string
-  instrumentId: string
 }
 
 export type QuoteCountOrderByAggregateInput = {

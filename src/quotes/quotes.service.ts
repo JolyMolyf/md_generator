@@ -30,6 +30,8 @@ export class QuotesService {
   }
 
   async createQuote(userId: string, createQuoteDto: CreateQuoteDto) {
+    console.log('userId', userId);
+    console.log('createQuoteDto', createQuoteDto);
     // Check if instrument exists
     const instrument = await this.prismaService.marketInstrument.findUnique({
       where: {
@@ -39,20 +41,6 @@ export class QuotesService {
 
     if (!instrument) {
       throw new NotFoundException('Instrument not found');
-    }
-
-    // Check for duplicate quote (same user + instrument)
-    const existingQuote = await this.prismaService.quote.findUnique({
-      where: {
-        userId_instrumentId: {
-          userId,
-          instrumentId: createQuoteDto.instrumentId,
-        },
-      },
-    });
-
-    if (existingQuote) {
-      throw new BadRequestException('Quote already exists for this instrument');
     }
 
     const quote = await this.prismaService.quote.create({

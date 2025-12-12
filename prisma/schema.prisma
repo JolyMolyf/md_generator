@@ -44,7 +44,6 @@ model Quote {
   updatedAt DateTime @updatedAt
   @@schema("public")
   @@map("Quote")
-  @@unique([userId, instrumentId])
   @@index([userId])
   @@index([instrumentId])
 }

@@ -6,6 +6,12 @@ import { CreateMarketDataInstrumentDto } from "./dtos/CreateMarketDataInstrument
 export class MarketDataIntrumentService {
     constructor(private readonly prismaService: PrismaService) {}
 
+    async findAllMarketDataInstruments() {
+        const marketDataInstruments = await this.prismaService.marketInstrument.findMany();
+        console.log('marketDataInstruments', marketDataInstruments);
+        return marketDataInstruments;
+    }
+
     async createMarketDataInstrument(createMarketDataInstrumentDto: CreateMarketDataInstrumentDto) {
         const existingInstrument = await this.prismaService.marketInstrument.findUnique({
             where: {
