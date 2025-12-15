@@ -27,7 +27,6 @@ export class MarketDataSimulatorService implements OnModuleInit, OnModuleDestroy
 
         this.worker.on('message', (message) => {
             if (message.type === 'market-updates') {
-                console.log('Market updates received', message.updates);
                 this.marketDataSocketService.sendMarketUpdates(message.updates);
             }
         });

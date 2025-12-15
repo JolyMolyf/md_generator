@@ -107,7 +107,7 @@ function generateUpdate(instrument: Instrument): MarketUpdate {
 
 function startSimulation(instruments: Instrument[], interval: number) {
   initializeInstruments(instruments);
-  console.log('Simulation started, instruments initialized', instrumentState);
+  // console.log('Simulation started, instruments initialized', instrumentState);
   
   const intervalId = setInterval(() => {
     const updates = instruments.map((inst) => generateUpdate(inst));

@@ -30,8 +30,6 @@ export class QuotesService {
   }
 
   async createQuote(userId: string, createQuoteDto: CreateQuoteDto) {
-    console.log('userId', userId);
-    console.log('createQuoteDto', createQuoteDto);
     // Check if instrument exists
     const instrument = await this.prismaService.marketInstrument.findUnique({
       where: {
@@ -52,7 +50,7 @@ export class QuotesService {
         userAsk: createQuoteDto.userAsk,
         notes: createQuoteDto.notes,
       },
-      include: {
+      include: { 
         user: {
           select: {
             id: true,

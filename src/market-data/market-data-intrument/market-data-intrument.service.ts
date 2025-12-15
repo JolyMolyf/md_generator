@@ -8,7 +8,6 @@ export class MarketDataIntrumentService {
 
     async findAllMarketDataInstruments() {
         const marketDataInstruments = await this.prismaService.marketInstrument.findMany();
-        console.log('marketDataInstruments', marketDataInstruments);
         return marketDataInstruments;
     }
 

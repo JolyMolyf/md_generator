@@ -27,7 +27,6 @@ export class QuotesController {
     }))
     async createQuote(@Request() req, @Body() createQuoteDto: CreateQuoteDto) {
         const userId = req?.user?.id ?? '088d5851-0d62-461c-83fc-25f38b22d332';
-        console.log('userId', userId);
         return await this.quotesService.createQuote(userId, createQuoteDto);
     }
 
